@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "structs.h"
+#include "feriados.h"
 
 void insereAno(anos* ano){
   puts("Insira o ano do calendário: ");
@@ -31,7 +32,7 @@ unsigned short int q, m, ret, y, dia;
 
 }
 
-int quantidadeDias(int mes, anos* ano){
+int quantidadeDiasEInfo(int mes, anos* ano){
   if (ano->bissexto && mes == 1) {
     strcpy(ano->mes[mes].nome, "      Fevereiro    ");
     return 29;
@@ -39,39 +40,51 @@ int quantidadeDias(int mes, anos* ano){
   else{
     switch (mes) {
       case 0:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "      Janeiro");
         return 31;
       case 1:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "      Fevereiro");
         return 28;
       case 2:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "        Março");
         return 31;
       case 3:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "        Abril");
         return 30;
       case 4:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "        Maio");
         return 31;
       case 5:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "       Junho");
         return 30;
       case 6:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "       Julho");
         return 31;
       case 7:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "       Agosto");
         return 31;
       case 8:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "      Setembro");
         return 30;
       case 9:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "      Outubro");
         return 31;
       case 10:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "      Novembro");
         return 30;
       case 11:
+        ano->mes[mes].indiceFeriado = 0;
         strcpy(ano->mes[mes].nome, "      Dezembro");
         return 31;
     }
@@ -84,7 +97,7 @@ void preencheCalendario(anos* ano){
 
   for (size_t i = 0; i < 12; i++) {
     diaInicial = calculaDiaSemana(ano->ano, i+1);
-    diafinal = quantidadeDias(i, ano);
+    diafinal = quantidadeDiasEInfo(i, ano);
     for (size_t j = 0; j < 6; j++) {
       for (size_t k = 0; k < 7; k++) {
         ano->mes[i].semana[j][k] = 0;
@@ -122,15 +135,22 @@ void exibeCalendario(anos* ano) {
       }
       puts("");
     }
+    for (size_t i = 0; i < ano->mes[k].indiceFeriado; i++) {
+      printf("%d - %s\n", ano->mes[k].feriado[i].dia, ano->mes[k].feriado[i].nome);
+    }
+    puts("");
   }
 }
+
 
 int main(int argc, char const *argv[]) {
   anos ano;
 
-  insereAno(&ano);
+  //insereAno(&ano);
+  ano.ano = 2019;
   verificaBissexto(&ano);
   preencheCalendario(&ano);
+  preencheFeriados(&ano);
   exibeCalendario(&ano);
 
   return 0;

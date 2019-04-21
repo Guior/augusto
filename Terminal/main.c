@@ -146,8 +146,8 @@ void exibeCalendario(anos* ano) {
 int main(int argc, char const *argv[]) {
   anos ano;
 
-  //insereAno(&ano);
-  ano.ano = 2019;
+  insereAno(&ano);
+  //ano.ano = 2019;
   verificaBissexto(&ano);
   preencheCalendario(&ano);
   preencheFeriados(&ano);

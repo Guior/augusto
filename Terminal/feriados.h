@@ -1,6 +1,36 @@
 #ifndef FERIADOS_H
 #define FERIADOS_H
 
+int quantidadeDias(int mes, anos* ano);
+
+void qFCinzas(anos* ano, short int dia, short int mes){
+  short int i;
+  for (size_t i = 0; i < 46; i++) {
+    dia -= 1;
+    if (dia == 0) {
+      mes -= 1;
+      dia = quantidadeDias(mes - 1, ano);
+    }
+  }
+  strcpy(ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].nome, "Quarta-Feira de Cinzas");
+  ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].dia = dia;
+  ano->mes[mes-1].indiceFeriado += 1;
+}
+
+void paixaoDeCristo(anos* ano, short int dia, short int mes){
+  short int i;
+  for (size_t i = 0; i < 2; i++) {
+    dia -= 1;
+    if (dia == 0) {
+      mes -= 1;
+      dia = quantidadeDias(mes - 1, ano);
+    }
+  }
+  strcpy(ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].nome, "Paixão de Cristo");
+  ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].dia = dia;
+  ano->mes[mes-1].indiceFeriado += 1;
+}
+
 void pascoa(anos* ano){
   short int year, a, b, c, d, e, f, g, h, i, k, l, m, p, q, dia, mes;
   year = ano->ano;
@@ -35,6 +65,9 @@ void pascoa(anos* ano){
   strcpy(ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].nome, "Domingo de Páscoa");
   ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].dia = dia;
   ano->mes[mes-1].indiceFeriado += 1;
+
+  paixaoDeCristo(ano, dia, mes);
+  qFCinzas(ano, dia, mes);
 }
 
 void natal(anos* ano){

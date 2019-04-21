@@ -18,6 +18,51 @@ void verificaBissexto(anos* ano){
     ano->bissexto = 0;
 }
 
+void zerarMeses(anos *ano){
+  short int mes;
+  for (size_t mes = 0; mes < 12; mes++) {
+    ano->mes[mes].indiceFeriado = 0;
+    switch (mes) {
+      case 0:
+        strcpy(ano->mes[mes].nome, "      Janeiro");
+        break;
+      case 1:
+        strcpy(ano->mes[mes].nome, "      Fevereiro");
+        break;
+      case 2:
+        strcpy(ano->mes[mes].nome, "        Março");
+        break;
+      case 3:
+        strcpy(ano->mes[mes].nome, "        Abril");
+        break;
+      case 4:
+        strcpy(ano->mes[mes].nome, "        Maio");
+        break;
+      case 5:
+        strcpy(ano->mes[mes].nome, "       Junho");
+        break;
+      case 6:
+        strcpy(ano->mes[mes].nome, "       Julho");
+        break;
+      case 7:
+        strcpy(ano->mes[mes].nome, "       Agosto");
+        break;
+      case 8:
+        strcpy(ano->mes[mes].nome, "      Setembro");
+        break;
+      case 9:
+        strcpy(ano->mes[mes].nome, "      Outubro");
+        break;
+      case 10:
+        strcpy(ano->mes[mes].nome, "      Novembro");
+        break;
+      case 11:
+        strcpy(ano->mes[mes].nome, "      Dezembro");
+        break;
+    }
+  }
+}
+
 unsigned short int calculaDiaSemana(unsigned short int ano, unsigned short int mes){
 
 unsigned short int q, m, ret, y, dia;
@@ -32,7 +77,7 @@ unsigned short int q, m, ret, y, dia;
 
 }
 
-int quantidadeDiasEInfo(int mes, anos* ano){
+int quantidadeDias(int mes, anos* ano){
   if (ano->bissexto && mes == 1) {
     strcpy(ano->mes[mes].nome, "      Fevereiro    ");
     return 29;
@@ -40,52 +85,28 @@ int quantidadeDiasEInfo(int mes, anos* ano){
   else{
     switch (mes) {
       case 0:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "      Janeiro");
         return 31;
       case 1:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "      Fevereiro");
         return 28;
       case 2:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "        Março");
         return 31;
       case 3:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "        Abril");
         return 30;
       case 4:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "        Maio");
         return 31;
       case 5:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "       Junho");
         return 30;
       case 6:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "       Julho");
         return 31;
       case 7:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "       Agosto");
         return 31;
       case 8:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "      Setembro");
         return 30;
       case 9:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "      Outubro");
         return 31;
       case 10:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "      Novembro");
         return 30;
       case 11:
-        ano->mes[mes].indiceFeriado = 0;
-        strcpy(ano->mes[mes].nome, "      Dezembro");
         return 31;
     }
   }
@@ -97,7 +118,7 @@ void preencheCalendario(anos* ano){
 
   for (size_t i = 0; i < 12; i++) {
     diaInicial = calculaDiaSemana(ano->ano, i+1);
-    diafinal = quantidadeDiasEInfo(i, ano);
+    diafinal = quantidadeDias(i, ano);
     for (size_t j = 0; j < 6; j++) {
       for (size_t k = 0; k < 7; k++) {
         ano->mes[i].semana[j][k] = 0;
@@ -147,8 +168,8 @@ int main(int argc, char const *argv[]) {
   anos ano;
 
   insereAno(&ano);
-  //ano.ano = 2019;
   verificaBissexto(&ano);
+  zerarMeses(&ano);
   preencheCalendario(&ano);
   preencheFeriados(&ano);
   exibeCalendario(&ano);

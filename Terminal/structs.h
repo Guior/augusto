@@ -16,7 +16,7 @@ typedef struct{
 typedef struct{
   unsigned short int ano;
   meses mes[12];
-  int bissexto ;
+  unsigned short int bissexto ;
 }anos;
 
 #endif

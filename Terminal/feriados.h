@@ -3,6 +3,34 @@
 
 int quantidadeDias(int mes, anos* ano);
 
+void adicionaFeriado(anos* ano, short int mes, short int dia, char nome[40]){
+  strcpy(ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].nome, nome);
+  ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].dia = dia;
+  ano->mes[mes-1].indiceFeriado += 1;
+}
+
+void ordenarFeriados(anos* ano){  //Bubble Sorte
+  short int i, j, dataTemp;
+  char nomeTemp[40];
+
+  for (size_t i = 0; i < 12; i++) {  //Percorre os meses
+    if(ano->mes[i].indiceFeriado > 1){ //verifica se aquele mês tem mais de um feriado
+      for (size_t j = 0; j < (ano->mes[i].indiceFeriado - 1); j++) { //faz a quantidade de iterações necessária pra ficar ordenado
+        if (ano->mes[i].feriado[j].dia > ano->mes[i].feriado[j + 1].dia) {
+          strcpy(nomeTemp, ano->mes[i].feriado[j + 1].nome);
+          dataTemp = ano->mes[i].feriado[j + 1].dia;
+
+          strcpy(ano->mes[i].feriado[j + 1].nome, ano->mes[i].feriado[j].nome);
+          ano->mes[i].feriado[j + 1].dia = ano->mes[i].feriado[j].dia;
+
+          strcpy(ano->mes[i].feriado[j].nome, nomeTemp);
+          ano->mes[i].feriado[j].dia = dataTemp;
+        }
+      }
+    }
+  }
+}
+
 void qFCinzas(anos* ano, short int dia, short int mes){
   short int i;
   for (size_t i = 0; i < 46; i++) {
@@ -12,9 +40,7 @@ void qFCinzas(anos* ano, short int dia, short int mes){
       dia = quantidadeDias(mes - 1, ano);
     }
   }
-  strcpy(ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].nome, "Quarta-Feira de Cinzas");
-  ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].dia = dia;
-  ano->mes[mes-1].indiceFeriado += 1;
+  adicionaFeriado(ano, mes, dia, "Quarta-Feira de Cinzas");
 }
 
 void paixaoDeCristo(anos* ano, short int dia, short int mes){
@@ -26,9 +52,7 @@ void paixaoDeCristo(anos* ano, short int dia, short int mes){
       dia = quantidadeDias(mes - 1, ano);
     }
   }
-  strcpy(ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].nome, "Paixão de Cristo");
-  ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].dia = dia;
-  ano->mes[mes-1].indiceFeriado += 1;
+  adicionaFeriado(ano, mes, dia, "Paixão de Cristo");
 }
 
 void pascoa(anos* ano){
@@ -62,30 +86,22 @@ void pascoa(anos* ano){
     dia = (((d + e + 114) % 31) + 1);
   }
 
-  strcpy(ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].nome, "Domingo de Páscoa");
-  ano->mes[mes-1].feriado[ano->mes[mes-1].indiceFeriado].dia = dia;
-  ano->mes[mes-1].indiceFeriado += 1;
+  adicionaFeriado(ano, mes, dia, "Domingo de Páscoa");
 
   paixaoDeCristo(ano, dia, mes);
   qFCinzas(ano, dia, mes);
 }
 
 void natal(anos* ano){
-  strcpy(ano->mes[11].feriado[ano->mes[11].indiceFeriado].nome, "Natal");
-  ano->mes[11].feriado[ano->mes[11].indiceFeriado].dia = 25;
-  ano->mes[11].indiceFeriado += 1;
+  adicionaFeriado(ano, 12, 25, "Natal");
 }
 
 void confraternizacaoUniversal(anos* ano){
-  strcpy(ano->mes[0].feriado[ano->mes[0].indiceFeriado].nome, "Confraternização Universal");
-  ano->mes[0].feriado[ano->mes[0].indiceFeriado].dia = 1;
-  ano->mes[0].indiceFeriado += 1;
+  adicionaFeriado(ano, 1, 1, "Confraternização Universal");
 }
 
 void aniversarioSBernardo(anos* ano){
-  strcpy(ano->mes[7].feriado[ano->mes[7].indiceFeriado].nome, "Aniversário de São Bernardo do Campo");
-  ano->mes[7].feriado[ano->mes[7].indiceFeriado].dia = 20;
-  ano->mes[7].indiceFeriado += 1;
+  adicionaFeriado(ano, 8, 20, "Aniversário de São Bernardo do Campo");
 }
 
 void preencheFeriados(anos* ano) {
@@ -93,6 +109,7 @@ void preencheFeriados(anos* ano) {
   natal(ano);
   confraternizacaoUniversal(ano);
   aniversarioSBernardo(ano);
+  ordenarFeriados(ano);
 }
 
 #endif

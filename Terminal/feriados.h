@@ -92,23 +92,11 @@ void pascoa(anos* ano){
   qFCinzas(ano, dia, mes);
 }
 
-void natal(anos* ano){
-  adicionaFeriado(ano, 12, 25, "Natal");
-}
-
-void confraternizacaoUniversal(anos* ano){
-  adicionaFeriado(ano, 1, 1, "Confraternização Universal");
-}
-
-void aniversarioSBernardo(anos* ano){
-  adicionaFeriado(ano, 8, 20, "Aniversário de São Bernardo do Campo");
-}
-
 void preencheFeriados(anos* ano) {
   pascoa(ano);
-  natal(ano);
-  confraternizacaoUniversal(ano);
-  aniversarioSBernardo(ano);
+  adicionaFeriado(ano, 12, 25, "Natal");
+  adicionaFeriado(ano, 1, 1, "Confraternização Universal");
+  adicionaFeriado(ano, 8, 20, "Aniversário de São Bernardo do Campo");
   ordenarFeriados(ano);
 }
 

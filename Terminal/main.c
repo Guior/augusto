@@ -5,8 +5,21 @@
 #include "feriados.h"
 
 void insereAno(anos* ano){
-  puts("Insira o ano do calendário: ");
-  scanf("%d", &(ano->ano));
+  short int anoTemp, inseridos;
+
+  while(1){
+		puts("Insira o ano do calendário: ");
+		char buffer[10];
+
+		fgets(buffer, sizeof(buffer), stdin);
+		inseridos = sscanf(buffer, "%d", &anoTemp);
+
+		if (inseridos == 0 || anoTemp < 1)
+			puts("Entrada não é válida");
+    else
+      break;
+	}
+  ano->ano = anoTemp;
   system("clear");
 }
 
@@ -22,99 +35,82 @@ void zerarMeses(anos *ano){
   short int mes;
   for (size_t mes = 0; mes < 12; mes++) {
     ano->mes[mes].indiceFeriado = 0;
-    switch (mes) {
-      case 0:
-        strcpy(ano->mes[mes].nome, "      Janeiro");
-        break;
-      case 1:
-        strcpy(ano->mes[mes].nome, "      Fevereiro");
-        break;
-      case 2:
-        strcpy(ano->mes[mes].nome, "        Março");
-        break;
-      case 3:
-        strcpy(ano->mes[mes].nome, "        Abril");
-        break;
-      case 4:
-        strcpy(ano->mes[mes].nome, "        Maio");
-        break;
-      case 5:
-        strcpy(ano->mes[mes].nome, "       Junho");
-        break;
-      case 6:
-        strcpy(ano->mes[mes].nome, "       Julho");
-        break;
-      case 7:
-        strcpy(ano->mes[mes].nome, "       Agosto");
-        break;
-      case 8:
-        strcpy(ano->mes[mes].nome, "      Setembro");
-        break;
-      case 9:
-        strcpy(ano->mes[mes].nome, "      Outubro");
-        break;
-      case 10:
-        strcpy(ano->mes[mes].nome, "      Novembro");
-        break;
-      case 11:
-        strcpy(ano->mes[mes].nome, "      Dezembro");
-        break;
-    }
+    if (mes == 0)
+      strcpy(ano->mes[mes].nome, "      Janeiro");
+    else if(mes == 1)
+      strcpy(ano->mes[mes].nome, "      Fevereiro");
+    else if(mes == 2)
+      strcpy(ano->mes[mes].nome, "        Março");
+    else if(mes == 3)
+      strcpy(ano->mes[mes].nome, "        Abril");
+    else if(mes == 4)
+      strcpy(ano->mes[mes].nome, "        Maio");
+    else if(mes == 5)
+      strcpy(ano->mes[mes].nome, "       Junho");
+    else if(mes == 6)
+      strcpy(ano->mes[mes].nome, "       Julho");
+    else if(mes == 7)
+      strcpy(ano->mes[mes].nome, "       Agosto");
+    else if(mes == 8)
+      strcpy(ano->mes[mes].nome, "      Setembro");
+    else if(mes == 9)
+      strcpy(ano->mes[mes].nome, "      Outubro");
+    else if(mes == 10)
+      strcpy(ano->mes[mes].nome, "      Novembro");
+    else if(mes == 11)
+      strcpy(ano->mes[mes].nome, "      Dezembro");
   }
 }
 
-unsigned short int calculaDiaSemana(unsigned short int ano, unsigned short int mes){
+int calculaDiaSemana(unsigned short int ano, unsigned short int mes){
 
-unsigned short int q, m, ret, y, dia;
+  short int q, m, ret, y, dia;
+  dia = 1;
 
-	m = (mes <3) ? (mes + 12) : mes;
-	y = ((m>12) ? (ano-1) : ano);
-	q = dia + (((m+1)*26)/10) + y + (y/4) + 6*(y/100) + (y/400);
+	m = ((mes < 3) ? (mes + 12) : mes);
+	y = ((m > 12) ? (ano - 1) : ano);
+	q = (dia + (((m+1)*26)/10) + y + (y/4) + (6*(y/100)) + (y/400));
 
 	ret = (q % 7);
 
-	return ret;
-
+  if(ret == 0)
+    return (ret+6);
+  else
+    return (ret-1);
 }
 
 int quantidadeDias(int mes, anos* ano){
-  if (ano->bissexto && mes == 1) {
-    strcpy(ano->mes[mes].nome, "      Fevereiro    ");
+  if(mes == 0)
+    return 31;
+  else if (!ano->bissexto && mes == 1)
+    return 28;
+  else if (ano->bissexto && mes == 1)
     return 29;
-  }
-  else{
-    switch (mes) {
-      case 0:
-        return 31;
-      case 1:
-        return 28;
-      case 2:
-        return 31;
-      case 3:
-        return 30;
-      case 4:
-        return 31;
-      case 5:
-        return 30;
-      case 6:
-        return 31;
-      case 7:
-        return 31;
-      case 8:
-        return 30;
-      case 9:
-        return 31;
-      case 10:
-        return 30;
-      case 11:
-        return 31;
-    }
-  }
+  else if(mes == 2)
+    return 31;
+  else if(mes == 3)
+    return 30;
+  else if(mes == 4)
+    return 31;
+  else if(mes == 5)
+    return 30;
+  else if(mes == 6)
+    return 31;
+  else if(mes == 7)
+    return 31;
+  else if(mes == 8)
+    return 30;
+  else if(mes == 9)
+    return 31;
+  else if(mes == 10)
+    return 30;
+  else if(mes == 11)
+    return 31;
 }
 
 void preencheCalendario(anos* ano){
-  short int i, j, k, diaInicial, diafinal;
-  short int dia = 1;
+  unsigned short int i, j, k, diaInicial, diafinal;
+  unsigned short int dia = 1;
 
   for (size_t i = 0; i < 12; i++) {
     diaInicial = calculaDiaSemana(ano->ano, i+1);
@@ -145,7 +141,7 @@ void exibeCalendario(anos* ano) {
 
   for (size_t k = 0; k < 12; k++) {
     printf("\n%s\n", ano->mes[k].nome);
-    puts(" d  s  t  q  q  s  s ");
+    puts(" d  s  t  q  q  s  s \t|   Feriados:");
     for (size_t i = 0; i < 6; i++) {
       for (size_t j = 0; j < 7; j++) {
         if(ano->mes[k].semana[i][j] == 0){
@@ -153,13 +149,16 @@ void exibeCalendario(anos* ano) {
         }
         else
           printf("%2d ", ano->mes[k].semana[i][j]);
-      }
+        }
+        printf("\t|");
+        if (ano->mes[k].indiceFeriado == 0 && i == 0)
+          printf("   Nenhum");
+        else if (i < ano->mes[k].indiceFeriado) {
+          printf("   %d - %s", ano->mes[k].feriado[i].dia, ano->mes[k].feriado[i].nome);
+        }
       puts("");
     }
-    for (size_t i = 0; i < ano->mes[k].indiceFeriado; i++) {
-      printf("%d - %s\n", ano->mes[k].feriado[i].dia, ano->mes[k].feriado[i].nome);
-    }
-    puts("");
+    puts("\n");
   }
 }
 

@@ -135,7 +135,7 @@ double moon_phase(int year,int month,int day, double hour, int* ip)
     return (1.0 - cos((lm - ls)*RAD))/2;
 }
 
-static void nextDay(int* y, int* m, int* d, double dd)
+static void nextDay(short int* y, short int* m, short int* d, double dd)
 {
     TimePlace tp;
     double jd = Julian(*y, *m, (double)*d);
@@ -149,22 +149,19 @@ static void nextDay(int* y, int* m, int* d, double dd)
 }
 
 void luaCheia(anos* ano){
-    int d, m, y;
-    int m0;
-    int h;
-    int i;
+    short int d, m, y, m0, i;
     double step = 1;
     int begun = 0;
 
     double pmax = 0;
     double pmin = 1;
-    int ymax, mmax, dmax, hmax;
-    int ymin, mmin, dmin, hmin;
+    int ymax, mmax, dmax, hmax, ymin, mmin, dmin, hmin, h;
     double plast = 0;
 
     y = ano->ano;
 
     for (size_t i = 0; i < 12; i++) {
+      short int dias[30] = {0};
       m = i+1;
       d = 1;
       m0 = m;
@@ -184,8 +181,12 @@ void luaCheia(anos* ano){
                     hmax = h;
                 }
                 else if (pmax) {
+                  if (!dias[dmax - 1]) {
                     adicionaFeriado(ano, m, dmax, "Lua Cheia");
+
                     pmax = 0;
+                    dias[dmax - 1] = 1;
+                  }
                 }
                 if (p < plast && p < pmin) {
                     pmin = p;

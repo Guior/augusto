@@ -12,22 +12,23 @@ void adicionaFeriado(anos* ano, short int mes, short int dia, char nome[40]){
   ano->mes[mes-1].indiceFeriado += 1;
 }
 
-void ordenarFeriados(anos* ano){  //Bubble Sorte
-  short int i, j, dataTemp;
-  char nomeTemp[40];
+void ordenarFeriados(anos* ano){  //Bubble Sort
+  short int i, j, k, dataTemp;
+  char nomeTemp[50];
 
-  for (size_t i = 0; i < 12; i++) {  //Percorre os meses
-    if(ano->mes[i].indiceFeriado > 1){ //verifica se aquele mês tem mais de um feriado
-      for (size_t j = 0; j < (ano->mes[i].indiceFeriado - 1); j++) { //faz a quantidade de iterações necessária pra ficar ordenado
-        if (ano->mes[i].feriado[j].dia > ano->mes[i].feriado[j + 1].dia) {
-          strcpy(nomeTemp, ano->mes[i].feriado[j + 1].nome);
-          dataTemp = ano->mes[i].feriado[j + 1].dia;
+  for (size_t i = 0; i < 12; i++) { //percorre os meses
+    if (ano->mes[i].indiceFeriado > 1) { //verifica se tem ao menos 2 elementos
+      for (size_t j = 0; j < (ano->mes[i].indiceFeriado-1); j++) {//realiza apenas a quantidade de iterações necessárias
+        for (size_t k = 0; k < (ano->mes[i].indiceFeriado-1-j); k++) {//percorre os elementos não ordenados ainda
+          if (ano->mes[i].feriado[k].dia > ano->mes[i].feriado[k+1].dia) {
+            dataTemp = ano->mes[i].feriado[k+1].dia;
+            ano->mes[i].feriado[k+1].dia = ano->mes[i].feriado[k].dia;
+            ano->mes[i].feriado[k].dia = dataTemp;
 
-          strcpy(ano->mes[i].feriado[j + 1].nome, ano->mes[i].feriado[j].nome);
-          ano->mes[i].feriado[j + 1].dia = ano->mes[i].feriado[j].dia;
-
-          strcpy(ano->mes[i].feriado[j].nome, nomeTemp);
-          ano->mes[i].feriado[j].dia = dataTemp;
+            strcpy(nomeTemp, ano->mes[i].feriado[k+1].nome);
+            strcpy(ano->mes[i].feriado[k+1].nome, ano->mes[i].feriado[k].nome);
+            strcpy(ano->mes[i].feriado[k].nome, nomeTemp);
+          }
         }
       }
     }
@@ -81,7 +82,6 @@ void pascoa(anos* ano){
 
     paixaoDeCristo(ano, dia, mes);
     qFCinzas(ano, dia, mes);
-
   }
   else{
     a = (year % 4);
@@ -113,6 +113,15 @@ void preencheFeriados(anos* ano) {
   confraterizacaoUniversal(ano);
   aniversarioSB(ano);
   luaCheia(ano);
+
+  adicionaFeriado(ano, 9, 23, "Inicio da Primavera");
+  adicionaFeriado(ano, 12, 21, "Inicio do Verão");
+  adicionaFeriado(ano, 3, 20, "Inicio do Outono");
+  adicionaFeriado(ano, 6, 21, "Inicio do Inverno");
+
+  adicionaFeriado(ano, 9, 23, "Equinócio de Primavera");
+  adicionaFeriado(ano, 3, 20, "Equinócio de Outono");
+
   ordenarFeriados(ano);
 }
 

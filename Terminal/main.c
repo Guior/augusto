@@ -3,6 +3,7 @@
 #include <string.h>
 #include "structs.h"
 #include "feriados.h"
+#include "phase.h"
 
 void insereAno(anos* ano){
   short int anoTemp, inseridos;
@@ -24,7 +25,7 @@ void insereAno(anos* ano){
 }
 
 void verificaBissexto(anos* ano){
-  if (((ano->ano % 4) == 0) && ((ano->ano % 100) != 0) && ((ano->ano % 400) != 0)) {
+  if (((ano->ano % 4) == 0) && ((ano->ano % 100) != 0) || ((ano->ano % 400) == 0)) {
     ano->bissexto = 1;
   }
   else
@@ -65,7 +66,7 @@ void zerarMeses(anos *ano){
 int calculaDiaSemana(unsigned short int ano, unsigned short int mes){
 
   short int q, m, ret, y, dia;
-  dia = 1;
+  dia = 0;
 
 	m = ((mes < 3) ? (mes + 12) : mes);
 	y = ((m > 12) ? (ano - 1) : ano);
@@ -73,10 +74,7 @@ int calculaDiaSemana(unsigned short int ano, unsigned short int mes){
 
 	ret = (q % 7);
 
-  if(ret == 0)
-    return (ret+6);
-  else
-    return (ret-1);
+  return (ret);
 }
 
 int quantidadeDias(int mes, anos* ano){
@@ -137,12 +135,13 @@ void preencheCalendario(anos* ano){
 void exibeCalendario(anos* ano) {
   short int i, j, k;
 
-  printf("Ano: %d\n", ano->ano);
+  printf("  Ano: %d\n", ano->ano);
 
   for (size_t k = 0; k < 12; k++) {
-    printf("\n%s\n", ano->mes[k].nome);
-    puts(" d  s  t  q  q  s  s \t|   Feriados:");
+    printf("\n  %s\n", ano->mes[k].nome);
+    puts("   d  s  t  q  q  s  s \t|   Feriados:");
     for (size_t i = 0; i < 6; i++) {
+      printf("  ");
       for (size_t j = 0; j < 7; j++) {
         if(ano->mes[k].semana[i][j] == 0){
           printf("   ");
@@ -154,7 +153,7 @@ void exibeCalendario(anos* ano) {
         if (ano->mes[k].indiceFeriado == 0 && i == 0)
           printf("   Nenhum");
         else if (i < ano->mes[k].indiceFeriado) {
-          printf("   %d - %s", ano->mes[k].feriado[i].dia, ano->mes[k].feriado[i].nome);
+          printf("   %2d - %s", ano->mes[k].feriado[i].dia, ano->mes[k].feriado[i].nome);
         }
       puts("");
     }

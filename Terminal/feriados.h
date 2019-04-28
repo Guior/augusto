@@ -1,6 +1,9 @@
 #ifndef FERIADOS_H
 #define FERIADOS_H
 
+#include<math.h>
+#include "phase.h"
+
 int quantidadeDias(int mes, anos* ano);
 
 void adicionaFeriado(anos* ano, short int mes, short int dia, char nome[40]){
@@ -74,6 +77,10 @@ void pascoa(anos* ano){
     m = ((a + (11 * h) + (22 * l)) / 451);
     mes = ((h + l - (7 * m) + 114) / 31);
     dia = (((h + l - (7 * m) + 114) % 31) + 1);
+    adicionaFeriado(ano, mes, dia, "Domingo de Páscoa (cristão)");
+
+    paixaoDeCristo(ano, dia, mes);
+    qFCinzas(ano, dia, mes);
 
   }
   else{
@@ -84,19 +91,28 @@ void pascoa(anos* ano){
     e = (((2 * a) + (4 * b) - d + 34) % 7);
     mes = ((d + e + 114) / 31);
     dia = (((d + e + 114) % 31) + 1);
+    adicionaFeriado(ano, mes, dia, "Páscoa (judaica)");
   }
+}
 
-  adicionaFeriado(ano, mes, dia, "Domingo de Páscoa");
+void aniversarioSB(anos* ano){
+  if(ano->ano >= 1553) //São Bernardo não existia antes de 1553
+    adicionaFeriado(ano, 8, 20, "Aniversário de São Bernardo do Campo");
+}
 
-  paixaoDeCristo(ano, dia, mes);
-  qFCinzas(ano, dia, mes);
+void confraterizacaoUniversal(anos* ano) {
+  if(ano->ano >= 1935) //Criado por Getúlio Vargas em 1935
+    adicionaFeriado(ano, 1, 1, "Confraternização Universal");
+  else if(ano->ano >= 1910) //Feriado com mesmo nome em Portugal criado em 1910
+    adicionaFeriado(ano, 10, 5, "Confraternização Universal (Portugal)");
 }
 
 void preencheFeriados(anos* ano) {
   pascoa(ano);
   adicionaFeriado(ano, 12, 25, "Natal");
-  adicionaFeriado(ano, 1, 1, "Confraternização Universal");
-  adicionaFeriado(ano, 8, 20, "Aniversário de São Bernardo do Campo");
+  confraterizacaoUniversal(ano);
+  aniversarioSB(ano);
+  luaCheia(ano);
   ordenarFeriados(ano);
 }
 

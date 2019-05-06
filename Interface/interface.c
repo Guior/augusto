@@ -11,12 +11,22 @@ int mes;
 int pedirAno = 0;
 anos ano;
 
+const char* retornaFeriado(int numFeriado){
+  static char feriadoNome[50];
+  if (numFeriado < ano.mes[mes].indiceFeriado) {
+    sprintf(feriadoNome, "%d - %s", ano.mes[mes].feriado[numFeriado].dia, ano.mes[mes].feriado[numFeriado].nome);
+    return feriadoNome;
+  }
+  else
+    return "";
+}
+
+
 int insereAno(int anoInt){
   if (!IupGetParam("Insira o ano:", 0, 0,
     "Ano: %i{Integer Tip}\n",
-    &anoInt,NULL))
+    &anoInt,NULL));
 
-  printf("%d\n", anoInt);
   return anoInt;
 }
 
@@ -51,12 +61,16 @@ int converteDiasPraString(short int mesTemp, char semanaString[6][7][3]){
 int main(int argc, char **argv){
   Ihandle *dlg, *frame1, *frame2, *frame3, *frame4, *frame5, *frame6, *frame7,
   *frame8, *frame9, *coluna1, *coluna2, *coluna3, *coluna4, *coluna5, *coluna6,
-  *coluna7, *coluna8, *tudo, *dataResposta, *janeiro, *fevereiro, *marco,*abril,
-  *maio, *junho, *julho, *agosto, *setembro, *outubro, *novembro, *dezembro;
+  *coluna7, *coluna8, *coluna9, *tudo, *dataResposta, *janeiro, *fevereiro, *marco,
+  *abril, *maio, *junho, *julho, *agosto, *setembro, *outubro, *novembro, *dezembro,
+  *dia1, *dia2, *dia3, *dia4, *dia5, *dia6, *dia7, *dia8, *dia9, *dia10, *dia11,
+  *dia12, *dia13, *dia14, *dia15, *dia16, *dia17, *dia18, *dia19, *dia20, *dia21,
+  *dia22, *dia23, *dia24, *dia25, *dia26, *dia27, *dia28, *dia29, *dia30, *dia31,
+  *dia32, *dia33, *dia34, *dia35, *dia36, *dia37, *dia38, *dia39, *dia40, *dia41,
+  *dia42;
 
   short int i, j;
   char semanaString[6][7][3];
-  int anoInt = 2019;
   char anoInput[5];
 
   IupOpen(&argc, &argv);
@@ -74,27 +88,45 @@ int main(int argc, char **argv){
   novembro = IupButton("Novembro", NULL);
   dezembro = IupButton("Dezembro", NULL);
 
+  if (mes == 0)
+    IupSetAttributes(janeiro, "FGCOLOR=\"#85892c\"");
+  else if (mes == 1)
+    IupSetAttributes(fevereiro, "FGCOLOR=\"#85892c\"");
+  else if (mes == 2)
+    IupSetAttributes(marco, "FGCOLOR=\"#85892c\"");
+  else if (mes == 3)
+    IupSetAttributes(abril, "FGCOLOR=\"#85892c\"");
+  else if (mes == 4)
+    IupSetAttributes(maio, "FGCOLOR=\"#85892c\"");
+  else if (mes == 5)
+    IupSetAttributes(junho, "FGCOLOR=\"#85892c\"");
+  else if (mes == 6)
+    IupSetAttributes(julho, "FGCOLOR=\"#85892c\"");
+  else if (mes == 7)
+    IupSetAttributes(agosto, "FGCOLOR=\"#85892c\"");
+  else if (mes == 8)
+    IupSetAttributes(setembro, "FGCOLOR=\"#85892c\"");
+  else if (mes == 9)
+    IupSetAttributes(outubro, "FGCOLOR=\"#85892c\"");
+  else if (mes == 10)
+    IupSetAttributes(novembro, "FGCOLOR=\"#85892c\"");
+  else if (mes == 11)
+    IupSetAttributes(dezembro, "FGCOLOR=\"#85892c\"");
+
   if (!pedirAno) {
-    anoInt = insereAno(anoInt);
+    ano.ano = 2019;
+    ano.ano = insereAno(ano.ano);
     pedirAno = 1;
   }
 
-  ano.ano = anoInt;
-  sprintf(anoInput, "%d", anoInt);
+  sprintf(anoInput, "%d", ano.ano);
   calendario(&ano);
 
-  dataResposta = IupSetAttributes(IupLabel(anoInput), "FGCOLOR=\"#FFFFFF\", FONTSIZE=28, WEIGHT=BOLD");
+  dataResposta = IupSetAttributes(IupLabel(anoInput), "FGCOLOR=\"#FFFFFF\", FONTSIZE=40, WEIGHT=BOLD");
 
   converteDiasPraString(mes, semanaString);
 
   frame1 = IupSetAttributes(
-    IupVbox(
-      dataResposta,
-      IupLabel("\n\n\n"),
-      NULL),
-    "MARGIN=0x0, GAP=120");
-
-  frame2 = IupSetAttributes(
     IupVbox(
       janeiro,
       fevereiro,
@@ -111,14 +143,8 @@ int main(int argc, char **argv){
       NULL),
     "MARGIN=0x0, ALIGNMENT=ALEFT, FLAT=YES, FGCOLOR=\"#FFFFFF\"");
 
-  coluna1 = IupVbox(
-    frame1,
-    frame2,
-    NULL
-  );
 
-
-  frame3 = IupSetAttributes(
+  frame2 = IupSetAttributes(
     IupVbox(
       IupVbox(IupLabel(semanaString[0][0])),
       IupVbox(IupLabel(semanaString[1][0])),
@@ -129,7 +155,7 @@ int main(int argc, char **argv){
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
-  frame4 = IupSetAttributes(
+  frame3 = IupSetAttributes(
     IupVbox(
       IupVbox(IupLabel(semanaString[0][1])),
       IupVbox(IupLabel(semanaString[1][1])),
@@ -141,7 +167,7 @@ int main(int argc, char **argv){
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
 
-  frame5 = IupSetAttributes(
+  frame4 = IupSetAttributes(
     IupVbox(
       IupVbox(IupLabel(semanaString[0][2])),
       IupVbox(IupLabel(semanaString[1][2])),
@@ -152,7 +178,7 @@ int main(int argc, char **argv){
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
-  frame6 = IupSetAttributes(
+  frame5 = IupSetAttributes(
     IupVbox(
       IupVbox(IupLabel(semanaString[0][3])),
       IupVbox(IupLabel(semanaString[1][3])),
@@ -163,7 +189,7 @@ int main(int argc, char **argv){
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
-  frame7 = IupSetAttributes(
+  frame6 = IupSetAttributes(
     IupVbox(
       IupVbox(IupLabel(semanaString[0][4])),
       IupVbox(IupLabel(semanaString[1][4])),
@@ -174,7 +200,7 @@ int main(int argc, char **argv){
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
-  frame8 = IupSetAttributes(
+  frame7 = IupSetAttributes(
     IupVbox(
       IupVbox(IupLabel(semanaString[0][5])),
       IupVbox(IupLabel(semanaString[1][5])),
@@ -185,7 +211,7 @@ int main(int argc, char **argv){
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
-  frame9 = IupSetAttributes(
+  frame8 = IupSetAttributes(
     IupVbox(
       IupVbox(IupLabel(semanaString[0][6])),
       IupVbox(IupLabel(semanaString[1][6])),
@@ -196,60 +222,70 @@ int main(int argc, char **argv){
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
+  coluna1 = IupVbox(
+    dataResposta,
+    IupLabel("\n\n\n\n\n\n\n\n"),
+    frame1,
+    NULL
+  );
 
   coluna2 = IupVbox(
-    IupSetAttributes(IupLabel("  d"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("\n  d"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    frame2,
+    NULL
+  );
+
+  coluna3 = IupVbox(
+    IupSetAttributes(IupLabel("\n  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame3,
     NULL
   );
 
-
-  coluna3 = IupVbox(
-    IupSetAttributes(IupLabel("  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+  coluna4 = IupVbox(
+    IupSetAttributes(IupLabel("\n  t"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame4,
     NULL
   );
 
-
-  coluna4 = IupVbox(
-    IupSetAttributes(IupLabel("  t"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+  coluna5 = IupVbox(
+    IupSetAttributes(IupLabel("\n  q"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame5,
     NULL
   );
 
-
-  coluna5 = IupVbox(
-    IupSetAttributes(IupLabel("  q"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+  coluna6 = IupVbox(
+    IupSetAttributes(IupLabel("\n  q"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame6,
     NULL
   );
 
-
-  coluna6 = IupVbox(
-    IupSetAttributes(IupLabel("  q"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+  coluna7 = IupVbox(
+    IupSetAttributes(IupLabel("\n  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame7,
     NULL
   );
 
-
-  coluna7 = IupVbox(
-    IupSetAttributes(IupLabel("  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+  coluna8 = IupVbox(
+    IupSetAttributes(IupLabel("\n  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame8,
     NULL
   );
 
-
-  coluna8 = IupVbox(
-    IupSetAttributes(IupLabel("  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
-    frame9,
+  coluna9 = IupVbox(
+    IupSetAttributes(IupLabel("Feriados:\n"), "FGCOLOR=\"#60206E\", FONTSIZE=24"),
+    IupSetAttributes(IupLabel(retornaFeriado(0)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(1)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(2)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(3)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(4)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(5)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(6)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
     NULL
   );
 
-
-
   tudo = IupHbox(
     coluna1,
-    IupLabel("\t\t\t\t\t\t\t\t\t"),
+    IupLabel("\t\t\t\t\t\t\t"),
     coluna2,
     coluna3,
     coluna4,
@@ -257,10 +293,11 @@ int main(int argc, char **argv){
     coluna6,
     coluna7,
     coluna8,
+    IupLabel("\t\t\t"),
+    coluna9,
     NULL
   );
   IupSetAttributes(tudo, "ALIGNMENT=ACENTER");
-
 
   dlg = IupDialog(tudo);
   IupSetAttributes (dlg, "MARGIN=10x10, TITLE = \"Calendário\", BGCOLOR=\"#272727\", ALIGNMENT=ACENTER");
@@ -281,6 +318,6 @@ int main(int argc, char **argv){
   IupShowXY (dlg, IUP_LEFT, IUP_TOP );
 
   IupMainLoop();
-  IupClose ();
+  IupClose();
   return EXIT_SUCCESS;
 }

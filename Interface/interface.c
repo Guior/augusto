@@ -9,6 +9,7 @@
 
 int mes;
 int pedirAno = 0;
+int indiceFeriado2 = 0;
 anos ano;
 
 const char* retornaFeriado(int numFeriado){
@@ -30,18 +31,18 @@ int insereAno(int anoInt){
   return anoInt;
 }
 
-void mesJan( Ihandle *self ){ mes = 0; IupClose(); main(); }
-void mesFev( Ihandle *self ){ mes = 1; IupClose(); main(); }
-void mesMar( Ihandle *self ){ mes = 2; IupClose(); main(); }
-void mesAbr( Ihandle *self ){ mes = 3; IupClose(); main(); }
-void mesMai( Ihandle *self ){ mes = 4; IupClose(); main(); }
-void mesJun( Ihandle *self ){ mes = 5; IupClose(); main(); }
-void mesJul( Ihandle *self ){ mes = 6; IupClose(); main(); }
-void mesAgo( Ihandle *self ){ mes = 7; IupClose(); main(); }
-void mesSet( Ihandle *self ){ mes = 8; IupClose(); main(); }
-void mesOut( Ihandle *self ){ mes = 9; IupClose(); main(); }
-void mesNov( Ihandle *self ){ mes = 10; IupClose(); main(); }
-void mesDez( Ihandle *self ){ mes = 11; IupClose(); main(); }
+void mesJan( Ihandle *self ){ mes = 0; indiceFeriado2 = 0; IupClose(); main(); }
+void mesFev( Ihandle *self ){ mes = 1; indiceFeriado2 = 0; IupClose(); main(); }
+void mesMar( Ihandle *self ){ mes = 2; indiceFeriado2 = 0; IupClose(); main(); }
+void mesAbr( Ihandle *self ){ mes = 3; indiceFeriado2 = 0; IupClose(); main(); }
+void mesMai( Ihandle *self ){ mes = 4; indiceFeriado2 = 0; IupClose(); main(); }
+void mesJun( Ihandle *self ){ mes = 5; indiceFeriado2 = 0; IupClose(); main(); }
+void mesJul( Ihandle *self ){ mes = 6; indiceFeriado2 = 0; IupClose(); main(); }
+void mesAgo( Ihandle *self ){ mes = 7; indiceFeriado2 = 0; IupClose(); main(); }
+void mesSet( Ihandle *self ){ mes = 8; indiceFeriado2 = 0; IupClose(); main(); }
+void mesOut( Ihandle *self ){ mes = 9; indiceFeriado2 = 0; IupClose(); main(); }
+void mesNov( Ihandle *self ){ mes = 10; indiceFeriado2 = 0; IupClose(); main(); }
+void mesDez( Ihandle *self ){ mes = 11; indiceFeriado2 = 0; IupClose(); main(); }
 
 int converteDiasPraString(short int mesTemp, char semanaString[6][7][3]){
   short int i, j;
@@ -69,7 +70,7 @@ int main(int argc, char **argv){
   *dia32, *dia33, *dia34, *dia35, *dia36, *dia37, *dia38, *dia39, *dia40, *dia41,
   *dia42;
 
-  short int i, j;
+  short int i;
   char semanaString[6][7][3];
   char anoInput[5];
 
@@ -126,6 +127,180 @@ int main(int argc, char **argv){
 
   converteDiasPraString(mes, semanaString);
 
+  dia1 = IupLabel(semanaString[0][0]);
+  dia2 = IupLabel(semanaString[0][1]);
+  dia3 = IupLabel(semanaString[0][2]);
+  dia4 = IupLabel(semanaString[0][3]);
+  dia5 = IupLabel(semanaString[0][4]);
+  dia6 = IupLabel(semanaString[0][5]);
+  dia7 = IupLabel(semanaString[0][6]);
+  dia8 = IupLabel(semanaString[1][0]);
+  dia9 = IupLabel(semanaString[1][1]);
+  dia10 = IupLabel(semanaString[1][2]);
+  dia11 = IupLabel(semanaString[1][3]);
+  dia12 = IupLabel(semanaString[1][4]);
+  dia13 = IupLabel(semanaString[1][5]);
+  dia14 = IupLabel(semanaString[1][6]);
+  dia15 = IupLabel(semanaString[2][0]);
+  dia16 = IupLabel(semanaString[2][1]);
+  dia17 = IupLabel(semanaString[2][2]);
+  dia18 = IupLabel(semanaString[2][3]);
+  dia19 = IupLabel(semanaString[2][4]);
+  dia20 = IupLabel(semanaString[2][5]);
+  dia21 = IupLabel(semanaString[2][6]);
+  dia22 = IupLabel(semanaString[3][0]);
+  dia23 = IupLabel(semanaString[3][1]);
+  dia24 = IupLabel(semanaString[3][2]);
+  dia25 = IupLabel(semanaString[3][3]);
+  dia26 = IupLabel(semanaString[3][4]);
+  dia27 = IupLabel(semanaString[3][5]);
+  dia28 = IupLabel(semanaString[3][6]);
+  dia29 = IupLabel(semanaString[4][0]);
+  dia30 = IupLabel(semanaString[4][1]);
+  dia31 = IupLabel(semanaString[4][2]);
+  dia32 = IupLabel(semanaString[4][3]);
+  dia33 = IupLabel(semanaString[4][4]);
+  dia34 = IupLabel(semanaString[4][5]);
+  dia35 = IupLabel(semanaString[4][6]);
+  dia36 = IupLabel(semanaString[5][0]);
+  dia37 = IupLabel(semanaString[5][1]);
+  dia38 = IupLabel(semanaString[5][2]);
+  dia39 = IupLabel(semanaString[5][3]);
+  dia40 = IupLabel(semanaString[5][4]);
+  dia41 = IupLabel(semanaString[5][5]);
+  dia42 = IupLabel(semanaString[5][6]);
+
+for (size_t i = 0; i < 6; i++) {
+  if (indiceFeriado2 < ano.mes[mes].indiceFeriado) {
+    if (ano.mes[mes].semana[0][0] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia1, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[0][1] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia2, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[0][2] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia3, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[0][3] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia4, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[0][4] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia5, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[0][5] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia6, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[0][6] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia7, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[1][0] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia8, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[1][1] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia9, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[1][2] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia10, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[1][3] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia11, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[1][4] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia12, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[1][5] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia13, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[1][6] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia14, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[2][0] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia15, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[2][1] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia16, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[2][2] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia17, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[2][3] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia18, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[2][4] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia19, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[2][5] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia20, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[2][6] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia21, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[3][0] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia22, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[3][1] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia23, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[3][2] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia24, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[3][3] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia25, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[3][4] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia26, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[3][5] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia27, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[3][6] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia28, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[4][0] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia29, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[4][1] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia30, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[4][2] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia31, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[4][3] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia32, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[4][4] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia33, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[4][5] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia34, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[4][6] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia35, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[5][0] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia36, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[5][1] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia37, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[5][2] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia38, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[5][3] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia39, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[5][4] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia40, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[5][5] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia41, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+    else if (ano.mes[mes].semana[5][6] == ano.mes[mes].feriado[indiceFeriado2].dia) {
+      IupSetAttribute(dia42, "FGCOLOR", "#60206E");
+      indiceFeriado2++;}
+  }
+}
+
   frame1 = IupSetAttributes(
     IupVbox(
       janeiro,
@@ -143,82 +318,80 @@ int main(int argc, char **argv){
       NULL),
     "MARGIN=0x0, ALIGNMENT=ALEFT, FLAT=YES, FGCOLOR=\"#FFFFFF\"");
 
-
   frame2 = IupSetAttributes(
     IupVbox(
-      IupVbox(IupLabel(semanaString[0][0])),
-      IupVbox(IupLabel(semanaString[1][0])),
-      IupVbox(IupLabel(semanaString[2][0])),
-      IupVbox(IupLabel(semanaString[3][0])),
-      IupVbox(IupLabel(semanaString[4][0])),
-      IupVbox(IupLabel(semanaString[5][0])),
+      dia1,
+      dia8,
+      dia15,
+      dia22,
+      dia29,
+      dia36,
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
   frame3 = IupSetAttributes(
     IupVbox(
-      IupVbox(IupLabel(semanaString[0][1])),
-      IupVbox(IupLabel(semanaString[1][1])),
-      IupVbox(IupLabel(semanaString[2][1])),
-      IupVbox(IupLabel(semanaString[3][1])),
-      IupVbox(IupLabel(semanaString[4][1])),
-      IupVbox(IupLabel(semanaString[5][1])),
+      dia2,
+      dia9,
+      dia16,
+      dia23,
+      dia30,
+      dia37,
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
-
   frame4 = IupSetAttributes(
     IupVbox(
-      IupVbox(IupLabel(semanaString[0][2])),
-      IupVbox(IupLabel(semanaString[1][2])),
-      IupVbox(IupLabel(semanaString[2][2])),
-      IupVbox(IupLabel(semanaString[3][2])),
-      IupVbox(IupLabel(semanaString[4][2])),
-      IupVbox(IupLabel(semanaString[5][2])),
+      dia3,
+      dia10,
+      dia17,
+      dia24,
+      dia31,
+      dia38,
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
   frame5 = IupSetAttributes(
     IupVbox(
-      IupVbox(IupLabel(semanaString[0][3])),
-      IupVbox(IupLabel(semanaString[1][3])),
-      IupVbox(IupLabel(semanaString[2][3])),
-      IupVbox(IupLabel(semanaString[3][3])),
-      IupVbox(IupLabel(semanaString[4][3])),
-      IupVbox(IupLabel(semanaString[5][3])),
+      dia4,
+      dia11,
+      dia18,
+      dia25,
+      dia32,
+      dia39,
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
   frame6 = IupSetAttributes(
     IupVbox(
-      IupVbox(IupLabel(semanaString[0][4])),
-      IupVbox(IupLabel(semanaString[1][4])),
-      IupVbox(IupLabel(semanaString[2][4])),
-      IupVbox(IupLabel(semanaString[3][4])),
-      IupVbox(IupLabel(semanaString[4][4])),
-      IupVbox(IupLabel(semanaString[5][4])),
+      dia5,
+      dia12,
+      dia19,
+      dia26,
+      dia33,
+      dia40,
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
   frame7 = IupSetAttributes(
     IupVbox(
-      IupVbox(IupLabel(semanaString[0][5])),
-      IupVbox(IupLabel(semanaString[1][5])),
-      IupVbox(IupLabel(semanaString[2][5])),
-      IupVbox(IupLabel(semanaString[3][5])),
-      IupVbox(IupLabel(semanaString[4][5])),
-      IupVbox(IupLabel(semanaString[5][5])),
+      dia6,
+      dia13,
+      dia20,
+      dia27,
+      dia34,
+      dia41,
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 
   frame8 = IupSetAttributes(
     IupVbox(
-      IupVbox(IupLabel(semanaString[0][6])),
-      IupVbox(IupLabel(semanaString[1][6])),
-      IupVbox(IupLabel(semanaString[2][6])),
-      IupVbox(IupLabel(semanaString[3][6])),
-      IupVbox(IupLabel(semanaString[4][6])),
-      IupVbox(IupLabel(semanaString[5][6])),
+      dia7,
+      dia14,
+      dia21,
+      dia28,
+      dia35,
+      dia42,
       NULL),
     "FGCOLOR=\"#FFFFFF\", FONTSIZE=30, GAP=20");
 

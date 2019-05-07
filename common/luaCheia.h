@@ -161,7 +161,6 @@ void luaCheia(anos* ano){
     y = ano->ano;
 
     for (size_t i = 0; i < 12; i++) {
-      short int dias[30] = {0};
       m = i+1;
       d = 1;
       m0 = m;
@@ -181,12 +180,9 @@ void luaCheia(anos* ano){
                     hmax = h;
                 }
                 else if (pmax) {
-                  if (!dias[dmax - 1]) {
-                    adicionaFeriado(ano, m, dmax, "Lua Cheia");
+                  adicionaFeriado(ano, m, dmax, "Lua Cheia");
 
-                    pmax = 0;
-                    dias[dmax - 1] = 1;
-                  }
+                  pmax = 0;
                 }
                 if (p < plast && p < pmin) {
                     pmin = p;

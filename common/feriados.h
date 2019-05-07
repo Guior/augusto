@@ -80,6 +80,7 @@ void pascoa(anos* ano){
     dia = (((h + l - (7 * m) + 114) % 31) + 1);
     adicionaFeriado(ano, mes, dia, "Domingo de Páscoa (cristão)");
 
+    luaCheia(ano);
     paixaoDeCristo(ano, dia, mes);
     qFCinzas(ano, dia, mes);
   }
@@ -112,7 +113,6 @@ void preencheFeriados(anos* ano) {
   adicionaFeriado(ano, 12, 25, "Natal");
   confraterizacaoUniversal(ano);
   aniversarioSB(ano);
-  luaCheia(ano);
 
   adicionaFeriado(ano, 9, 23, "Inicio da Primavera");
   adicionaFeriado(ano, 12, 21, "Inicio do Verão");

@@ -4,7 +4,7 @@
 #include "../common/calendario.h"
 #include "../common/structs.h"
 #include "../common/feriados.h"
-#include "../common/phase.h"
+#include "../common/luaCheia.h"
 
 void insereAno(anos* ano){
   short int anoTemp, inseridos;

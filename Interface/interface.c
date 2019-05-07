@@ -23,12 +23,12 @@ const char* retornaFeriado(int numFeriado){
 }
 
 
-int insereAno(int anoInt){
+void insereAno(){
+  int anoTemp = ano.ano;
   if (!IupGetParam("Insira o ano:", 0, 0,
     "Ano: %i{Integer Tip}\n",
-    &anoInt,NULL));
-
-  return anoInt;
+    &anoTemp,NULL));
+  ano.ano = anoTemp;
 }
 
 void mesJan( Ihandle *self ){ mes = 0; indiceFeriado2 = 0; IupClose(); main(); }
@@ -43,6 +43,7 @@ void mesSet( Ihandle *self ){ mes = 8; indiceFeriado2 = 0; IupClose(); main(); }
 void mesOut( Ihandle *self ){ mes = 9; indiceFeriado2 = 0; IupClose(); main(); }
 void mesNov( Ihandle *self ){ mes = 10; indiceFeriado2 = 0; IupClose(); main(); }
 void mesDez( Ihandle *self ){ mes = 11; indiceFeriado2 = 0; IupClose(); main(); }
+void novoAno( Ihandle *self ){ insereAno(); mes = 0; indiceFeriado2 = 0; IupClose(); main(); }
 
 int converteDiasPraString(short int mesTemp, char semanaString[6][7][3]){
   short int i, j;
@@ -116,14 +117,14 @@ int main(int argc, char **argv){
 
   if (!pedirAno) {
     ano.ano = 2019;
-    ano.ano = insereAno(ano.ano);
+    insereAno();
     pedirAno = 1;
   }
 
   sprintf(anoInput, "%d", ano.ano);
   calendario(&ano);
 
-  dataResposta = IupSetAttributes(IupLabel(anoInput), "FGCOLOR=\"#FFFFFF\", FONTSIZE=40, WEIGHT=BOLD");
+  dataResposta = IupSetAttributes(IupButton(anoInput, NULL), "FGCOLOR=\"#FFFFFF\", FLAT=YES, FONTSIZE=40, WEIGHT=BOLD");
 
   converteDiasPraString(mes, semanaString);
 
@@ -487,6 +488,7 @@ for (size_t i = 0; i < 6; i++) {
   IupSetCallback(outubro, "ACTION", (Icallback) mesOut);
   IupSetCallback(novembro, "ACTION", (Icallback) mesNov);
   IupSetCallback(dezembro, "ACTION", (Icallback) mesDez);
+  IupSetCallback(dataResposta, "ACTION", (Icallback) novoAno);
 
   IupShowXY (dlg, IUP_LEFT, IUP_TOP );
 

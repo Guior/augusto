@@ -7,7 +7,7 @@
 #include "../common/luaCheia.h"
 #include "../common/calendario.h"
 
-int mes;
+int mes, cancel;
 int pedirAno = 0;
 int indiceFeriado2 = 0;
 anos ano;
@@ -25,9 +25,10 @@ const char* retornaFeriado(int numFeriado){
 
 void insereAno(){
   int anoTemp = ano.ano;
+  cancel = 0;
   if (!IupGetParam("Insira o ano:", 0, 0,
     "Ano: %i{Integer Tip}\n",
-    &anoTemp,NULL));
+    &anoTemp,NULL)) cancel = 1;
   ano.ano = anoTemp;
 }
 
@@ -230,9 +231,10 @@ int main(int argc, char **argv){
   IupSetCallback(meses[11], "ACTION", (Icallback) mesDez);
   IupSetCallback(dataResposta, "ACTION", (Icallback) novoAno);
 
-  IupShowXY (dlg, IUP_LEFT, IUP_TOP );
-
-  IupMainLoop();
+  if (cancel == 0) {
+    IupShowXY (dlg, IUP_LEFT, IUP_TOP );
+    IupMainLoop();
+  }
   IupClose();
   return EXIT_SUCCESS;
 }

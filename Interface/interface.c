@@ -86,7 +86,7 @@ int main(int argc, char **argv){
     IupButton("Novembro", NULL),
     IupButton("Dezembro", NULL),
   };
-  IupSetAttributes(meses[mes], "FGCOLOR=\"#85892c\"");
+  IupSetAttributes(meses[mes], "FGCOLOR=\"#a569bd\"");
 
   if (!pedirAno) {
     ano.ano = 2019;
@@ -107,12 +107,12 @@ int main(int argc, char **argv){
     }
   }
 
-  for (size_t i = 0; i < 6; i++) {
+  for (size_t i = 0; i < ano.mes[mes].indiceFeriado; i++) {
     for (size_t j = 0; j < 6; j++) {
       for (size_t k = 0; k < 7; k++) {
         if (indiceFeriado2 < ano.mes[mes].indiceFeriado) {
           if (ano.mes[mes].semana[j][k] == ano.mes[mes].feriado[indiceFeriado2].dia) {
-            IupSetAttribute(dias[j][k], "FGCOLOR", "#60206E");
+            IupSetAttribute(dias[j][k], "FGCOLOR", "#00ffc5");
             indiceFeriado2++;
           }
         }
@@ -155,67 +155,68 @@ int main(int argc, char **argv){
 
   coluna1 = IupVbox(
     dataResposta,
-    IupLabel("\n\n\n\n\n\n\n\n"),
+    IupLabel("\n\n\n\n"),
     frame1,
     NULL);
 
   coluna2 = IupVbox(
-    IupSetAttributes(IupLabel("\n  d"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("  d"), "FGCOLOR=\"#b92154\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame2,
     NULL);
 
   coluna3 = IupVbox(
-    IupSetAttributes(IupLabel("\n  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("  s"), "FGCOLOR=\"#b92154\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame3,
     NULL);
 
   coluna4 = IupVbox(
-    IupSetAttributes(IupLabel("\n  t"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("  t"), "FGCOLOR=\"#b92154\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame4,
     NULL);
 
   coluna5 = IupVbox(
-    IupSetAttributes(IupLabel("\n  q"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("  q"), "FGCOLOR=\"#b92154\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame5,
     NULL);
 
   coluna6 = IupVbox(
-    IupSetAttributes(IupLabel("\n  q"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("  q"), "FGCOLOR=\"#b92154\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame6,
     NULL);
 
   coluna7 = IupVbox(
-    IupSetAttributes(IupLabel("\n  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("  s"), "FGCOLOR=\"#b92154\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame7,
     NULL);
 
   coluna8 = IupVbox(
-    IupSetAttributes(IupLabel("\n  s"), "FGCOLOR=\"#075656\", FONTSIZE=30, ALIGNMENT=ACENTER"),
+    IupSetAttributes(IupLabel("  s"), "FGCOLOR=\"#b92154\", FONTSIZE=30, ALIGNMENT=ACENTER"),
     frame8,
     NULL);
 
   coluna9 = IupVbox(
-    IupSetAttributes(IupLabel("Feriados:\n"), "FGCOLOR=\"#60206E\", FONTSIZE=24"),
-    IupSetAttributes(IupLabel(retornaFeriado(0)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
-    IupSetAttributes(IupLabel(retornaFeriado(1)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
-    IupSetAttributes(IupLabel(retornaFeriado(2)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
-    IupSetAttributes(IupLabel(retornaFeriado(3)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
-    IupSetAttributes(IupLabel(retornaFeriado(4)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
-    IupSetAttributes(IupLabel(retornaFeriado(5)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
-    IupSetAttributes(IupLabel(retornaFeriado(6)), "FGCOLOR=\"#60206E\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel("Feriados:\n"), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=24"),
+    IupSetAttributes(IupLabel(retornaFeriado(0)), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(1)), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(2)), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(3)), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(4)), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(5)), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=18"),
+    IupSetAttributes(IupLabel(retornaFeriado(6)), "FGCOLOR=\"#00ffc500ffc5\", FONTSIZE=18"),
     NULL);
 
   tudo = IupHbox(
     coluna1,
-    IupLabel("\t\t\t\t\t\t\t"),
+    IupLabel("\t\t\t\t\t\t"),
     coluna2, coluna3, coluna4, coluna5, coluna6, coluna7, coluna8,
     IupLabel("\t\t\t"),
     coluna9,
+    IupLabel("\t"),
     NULL);
   IupSetAttributes(tudo, "ALIGNMENT=ACENTER");
 
   dlg = IupDialog(tudo);
-  IupSetAttributes (dlg, "MARGIN=10x10, TITLE = \"Calendário\", BGCOLOR=\"#272727\", ALIGNMENT=ACENTER");
+  IupSetAttributes (dlg, "MARGIN=10x10, TITLE = \"Calendário\", BGCOLOR=\"#252525\", ALIGNMENT=ACENTER");
 
   IupSetCallback(meses[0], "ACTION", (Icallback) mesJan);
   IupSetCallback(meses[1], "ACTION", (Icallback) mesFev);

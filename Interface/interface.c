@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include </usr/include/iup/iup.h>
+#include <iup.h>
 #include "../common/structs.h"
 #include "../common/feriados.h"
 #include "../common/luaCheia.h"

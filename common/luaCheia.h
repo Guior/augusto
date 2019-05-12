@@ -149,7 +149,7 @@ static void nextDay(short int* y, short int* m, short int* d, double dd)
 }
 
 void luaCheia(anos* ano){
-  // algoritmo retirado de www.voidware.com/phase.c
+  // algoritmo retirado de http://www.voidware.com/moon_phase.htm
     short int d, m, y, m0, i;
     double step = 1;
     int begun = 0;

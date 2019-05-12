@@ -48,7 +48,7 @@ void zerarMeses(anos *ano){
 }
 
 int calculaDiaSemana(unsigned short int ano, unsigned short int mes){
-
+// algoritmo de congruencia de zeller
   short int q, m, ret, y, dia;
   dia = 0;
 

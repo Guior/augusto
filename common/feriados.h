@@ -60,6 +60,7 @@ void paixaoDeCristo(anos* ano, short int dia, short int mes){
 }
 
 void pascoa(anos* ano){
+  // algoritmo de cálculo de páscoa retirado de http://ghiorzi.org/portug2.htm
   short int year, a, b, c, d, e, f, g, h, i, k, l, m, p, q, dia, mes;
   year = ano->ano;
 
@@ -102,7 +103,7 @@ void aniversarioSB(anos* ano){
 }
 
 void confraterizacaoUniversal(anos* ano) {
-  if(ano->ano >= 1935) //Criado por Getúlio Vargas em 1935
+  if(ano->ano >= 1936) //Criado por Getúlio Vargas em 29 de outubro de 1935
     adicionaFeriado(ano, 1, 1, "Confraternização Universal");
   else if(ano->ano >= 1910) //Feriado com mesmo nome em Portugal criado em 1910
     adicionaFeriado(ano, 10, 5, "Confraternização Universal (Portugal)");

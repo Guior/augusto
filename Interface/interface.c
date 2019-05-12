@@ -47,7 +47,6 @@ void mesDez( Ihandle *self ){ mes = 11; indiceFeriado2 = 0; IupClose(); main(); 
 void novoAno( Ihandle *self ){ insereAno(); mes = 0; indiceFeriado2 = 0; IupClose(); main(); }
 
 int converteDiasPraString(short int mesTemp, char semanaString[6][7][3]){
-  short int i, j;
   char temp[40];
   for (size_t i = 0; i < 6; i++) {
     for (size_t j = 0; j < 7; j++) {
@@ -64,7 +63,6 @@ int converteDiasPraString(short int mesTemp, char semanaString[6][7][3]){
 int main(int argc, char **argv){
   IupOpen(&argc, &argv);
 
-  short int i, j, k;
   char semanaString[6][7][3];
   char anoInput[5];
 

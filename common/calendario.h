@@ -17,7 +17,6 @@ void verificaBissexto(anos* ano){
 }
 
 void zerarMeses(anos *ano){
-  short int mes;
   for (size_t mes = 0; mes < 12; mes++) {
     ano->mes[mes].indiceFeriado = 0;
     if (mes == 0)
@@ -91,7 +90,7 @@ int quantidadeDias(int mes, anos* ano){
 }
 
 void preencheCalendario(anos* ano){
-  unsigned short int i, j, k, diaInicial, diafinal;
+  unsigned short int diaInicial, diafinal;
   unsigned short int dia = 1;
 
   for (size_t i = 0; i < 12; i++) {

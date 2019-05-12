@@ -13,7 +13,7 @@ void adicionaFeriado(anos* ano, short int mes, short int dia, char nome[40]){
 }
 
 void ordenarFeriados(anos* ano){  //Bubble Sort
-  short int i, j, k, dataTemp;
+  short int dataTemp;
   char nomeTemp[50];
 
   for (size_t i = 0; i < 12; i++) { //percorre os meses
@@ -36,7 +36,6 @@ void ordenarFeriados(anos* ano){  //Bubble Sort
 }
 
 void qFCinzas(anos* ano, short int dia, short int mes){
-  short int i;
   for (size_t i = 0; i < 46; i++) {
     dia -= 1;
     if (dia == 0) {
@@ -48,7 +47,6 @@ void qFCinzas(anos* ano, short int dia, short int mes){
 }
 
 void paixaoDeCristo(anos* ano, short int dia, short int mes){
-  short int i;
   for (size_t i = 0; i < 2; i++) {
     dia -= 1;
     if (dia == 0) {
